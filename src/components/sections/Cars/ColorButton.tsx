@@ -20,7 +20,7 @@ const ColorButton = ({ color, isSelected, onClick }: ColorButtonProps) => {
             style={{ backgroundColor: color.hex_value }}>
          {color.totalAvailable > 0 ? (
            <span className="absolute bottom-0 right-0 text-[10px] bg-primary text-white px-1 rounded-tl">
-             {color.totalAvailable}
+             {/* {color.totalAvailable} */}
            </span>
          ) : (
            <span className="absolute bottom-0 right-0 text-[10px] bg-gray-500 text-white px-1 rounded-tl">
