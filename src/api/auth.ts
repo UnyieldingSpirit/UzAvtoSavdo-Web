@@ -9,6 +9,7 @@ export const authApi = {
         return `https://uzavtosavdo.uz/t/captcha?token=${rcode}&t=${Date.now()}`;
     },
 
+    
     async checkCaptcha(captchaValue: string): Promise<string | false> {
         try {
             const rcode = await getRcode();
