@@ -17,10 +17,9 @@ const translations = {
                 "profile": "Shaxsiy kabinet"
             },
             "testMode": {
-                "message": "Sayt test rejimida",
-                "short": "Test",
-                "infoTitle": "Test rejimi haqida",
-                "infoText": "Ayrim funksiyalar beqaror ishlashi mumkin. Biz xizmatni yaxshilash ustida faol ishlamoqdamiz."
+                "prefix": "🚀",
+                "message": "Beta-test rejimida ishlamoqda",
+                "suffix": "✨"
             }
         }
     },
@@ -42,10 +41,9 @@ const translations = {
                 "profile": "Личный кабинет"
             },
             "testMode": {
+                "prefix": "🚀",
                 "message": "Сайт в режиме тестирования",
-                "short": "Тест",
-                "infoTitle": "Информация о тестировании",
-                "infoText": "Некоторые функции могут работать нестабильно. Мы активно работаем над улучшением сервиса."
+                "suffix": "✨"
             }
         }
     }
