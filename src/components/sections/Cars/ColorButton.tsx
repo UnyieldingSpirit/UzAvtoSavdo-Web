@@ -24,7 +24,7 @@ const ColorButton = ({ color, isSelected, onClick }: ColorButtonProps) => {
            </span>
          ) : (
            <span className="absolute bottom-0 right-0 text-[10px] bg-gray-500 text-white px-1 rounded-tl">
-             {color.queue_no}
+             {/* {color.queue_no} */}
            </span>
          )}
        </div>
