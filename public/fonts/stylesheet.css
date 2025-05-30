@@ -1,0 +1,31 @@
+/* SKODA Next */
+@font-face {
+    font-family: 'SKODA Next';
+    src: url('SKODANext-Light.eot');
+    src: local('SKODA Next Light'), local('SKODANext-Light'),
+        url('SKODANext-Light.eot?#iefix') format('embedded-opentype'),
+        url('SKODANext-Light.woff') format('woff'),
+        url('SKODANext-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SKODA Next';
+    src: url('SKODANext-Bold.eot');
+    src: local('SKODA Next Bold'), local('SKODANext-Bold'),
+        url('SKODANext-Bold.eot?#iefix') format('embedded-opentype'),
+        url('SKODANext-Bold.woff') format('woff'),
+        url('SKODANext-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SKODA Next';
+    src: url('SKODANext-Regular.eot');
+    src: local('SKODA Next'), local('SKODANext-Regular'),
+        url('SKODANext-Regular.eot?#iefix') format('embedded-opentype'),
+        url('SKODANext-Regular.woff') format('woff'),
+        url('SKODANext-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

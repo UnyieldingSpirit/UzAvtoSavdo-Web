@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .container-fluid {
+    @apply mx-auto px-[15px] w-full;
+  }
+}
+
+.speed {
+  transition: all .2s;
+}
