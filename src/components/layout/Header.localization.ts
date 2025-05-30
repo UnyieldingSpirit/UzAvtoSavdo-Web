@@ -10,12 +10,16 @@ const translations = {
                 "services": "Avtoservis",
                 "faq": "Savol-javob",
                 'home': 'Bosh sahifa'
-
             },
             "auth": {
                 "signIn": "Kirish",
                 "signUp": "Roʻyxatdan oʻtish",
                 "profile": "Shaxsiy kabinet"
+            },
+            "testMode": {
+                "prefix": "🚀",
+                "message": "Beta-test rejimida ishlamoqda",
+                "suffix": "✨"
             }
         }
     },
@@ -26,15 +30,20 @@ const translations = {
                 "dealers": "Дилеры",
                 "promotions": "Профиль",
                 "news": "Новости и события",
-                "drive": "Тест-драйв",
+                "drive": "Тест-драйв",
                 "services": "Автоcервис",
-                "faq": "Вопросы и ответы", 
+                "faq": "Вопросы и ответы",
                 "home": "Главная"
             },
             "auth": {
                 "signIn": "Войти",
                 "signUp": "Регистрация",
                 "profile": "Личный кабинет"
+            },
+            "testMode": {
+                "prefix": "🚀",
+                "message": "Сайт в режиме бета-тестирования",
+                "suffix": "✨"
             }
         }
     }
