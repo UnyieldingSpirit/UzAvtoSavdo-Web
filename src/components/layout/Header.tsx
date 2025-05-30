@@ -6,7 +6,10 @@ import Link from "next/link";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useTranslation } from "@/hooks/useTranslation";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, Menu, X, Sparkles, Rocket, Code2, Zap } from 'lucide-react';
+import {
+  User, Menu, X,
+  // ]Sparkles, Rocket, Code2, Zap
+} from 'lucide-react';
 import translations from "./Header.localization";
 import { CaptchaModal } from "../sections/CaptchaModal";
 import { useAuth } from "@/hooks/useAuth";
@@ -147,20 +150,17 @@ export const Header: React.FC<Props> = () => {
             transition={{ duration: 0.3 }}
             className="fixed top-0 left-0 right-0 z-[22] overflow-hidden"
           >
-            <div className="relative h-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-[length:200%_100%] animate-gradient">
+            <div className="relative h-full bg-primary">
               {/* Анимированный фон */}
               <div className="absolute inset-0 bg-black/20"></div>
               
               {/* Декоративные элементы */}
-              <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-4 -left-4 w-24 h-24 bg-white/10 rounded-full blur-xl animate-pulse"></div>
-                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse delay-300"></div>
-              </div>
+          
 
               <div className="relative container-fluid h-full">
                 <div className="flex items-center justify-center gap-3 h-full px-4">
                   {/* Анимированные иконки */}
-                  <motion.div
+                  {/* <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                     className="hidden sm:block"
@@ -174,37 +174,37 @@ export const Header: React.FC<Props> = () => {
                     className="hidden sm:block"
                   >
                     <Rocket className="w-5 h-5 text-white" />
-                  </motion.div>
+                  </motion.div> */}
 
                   {/* Основной текст */}
                   <div className="flex items-center gap-2 text-white">
-                    <motion.div
+                    {/* <motion.div
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     >
                       <Code2 className="w-5 h-5" />
-                    </motion.div>
+                    </motion.div> */}
                     
                     <p className="text-sm font-medium text-center flex items-center gap-1">
-                      <span className="hidden sm:inline">{t('header.testMode.prefix') || '🚀'}</span>
+                      {/* <span className="hidden sm:inline">{t('header.testMode.prefix') || '🚀'}</span> */}
                       <span>{t('header.testMode.message') || 'Сайт в режиме бета-тестирования'}</span>
-                      <motion.span
+                      {/* <motion.span
                         animate={{ opacity: [0.5, 1, 0.5] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                         className="hidden sm:inline"
                       >
-                        {t('header.testMode.suffix') || '✨'}
-                      </motion.span>
+                        {t('header.testMode.suffix')}
+                      </motion.span> */}
                     </p>
                   </div>
 
-                  <motion.div
+                  {/* <motion.div
                     animate={{ rotate: [0, 180, 360] }}
                     transition={{ duration: 3, repeat: Infinity }}
                     className="hidden sm:block"
                   >
                     <Zap className="w-5 h-5 text-yellow-300" />
-                  </motion.div>
+                  </motion.div> */}
 
                   {/* Кнопка закрытия */}
                   <button
