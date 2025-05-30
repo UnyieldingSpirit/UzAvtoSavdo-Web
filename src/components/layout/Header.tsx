@@ -6,10 +6,7 @@ import Link from "next/link";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useTranslation } from "@/hooks/useTranslation";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  User, Menu, X,
-  // ]Sparkles, Rocket, Code2, Zap
-} from 'lucide-react';
+import { User, Menu, X, FlaskConical } from 'lucide-react';
 import translations from "./Header.localization";
 import { CaptchaModal } from "../sections/CaptchaModal";
 import { useAuth } from "@/hooks/useAuth";
@@ -62,7 +59,7 @@ const itemVariants = {
 export const Header: React.FC<Props> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [isTestBannerVisible, setIsTestBannerVisible] = useState(true);
+  const [showTestInfo, setShowTestInfo] = useState(false);
   const { t } = useTranslation(translations);
   const pathname = usePathname();
   const { resetDealerState } = useContractStore();
@@ -78,11 +75,6 @@ export const Header: React.FC<Props> = () => {
 
   useEffect(() => {
     setMounted(true);
-    // Проверяем, не скрыл ли пользователь баннер ранее
-    const bannerHidden = localStorage.getItem('testBannerHidden');
-    if (bannerHidden) {
-      setIsTestBannerVisible(false);
-    }
   }, []);
 
   useEffect(() => {
@@ -96,11 +88,6 @@ export const Header: React.FC<Props> = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isMenuOpen]);
-
-  const handleCloseBanner = () => {
-    setIsTestBannerVisible(false);
-    // localStorage.setItem('testBannerHidden', 'true');
-  };
 
   const AuthButton = () => {
     const { isAuthorized, handleAuthRequired } = useAuth();
@@ -135,94 +122,9 @@ export const Header: React.FC<Props> = () => {
     return null;
   }
 
-  const topOffset = isTestBannerVisible ? 'top-[48px]' : 'top-0';
-  const mobileMenuOffset = isTestBannerVisible ? 'top-[128px]' : 'top-[80px]';
-
   return (
     <>
-      {/* Стильная информационная полоса о тестовом режиме */}
-      <AnimatePresence>
-        {isTestBannerVisible && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 48, opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-0 left-0 right-0 z-[22] overflow-hidden"
-          >
-            <div className="relative h-full bg-primary">
-              {/* Анимированный фон */}
-              <div className="absolute inset-0 bg-black/20"></div>
-              
-              {/* Декоративные элементы */}
-          
-
-              <div className="relative container-fluid h-full">
-                <div className="flex items-center justify-center gap-3 h-full px-4">
-                  {/* Анимированные иконки */}
-                  {/* <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="hidden sm:block"
-                  >
-                    <Sparkles className="w-5 h-5 text-yellow-300" />
-                  </motion.div>
-
-                  <motion.div
-                    animate={{ y: [-2, 2, -2] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="hidden sm:block"
-                  >
-                    <Rocket className="w-5 h-5 text-white" />
-                  </motion.div> */}
-
-                  {/* Основной текст */}
-                  <div className="flex items-center gap-2 text-white">
-                    {/* <motion.div
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      <Code2 className="w-5 h-5" />
-                    </motion.div> */}
-                    
-                    <p className="text-sm font-medium text-center flex items-center gap-1">
-                      {/* <span className="hidden sm:inline">{t('header.testMode.prefix') || '🚀'}</span> */}
-                      <span>{t('header.testMode.message') || 'Сайт в режиме бета-тестирования'}</span>
-                      {/* <motion.span
-                        animate={{ opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="hidden sm:inline"
-                      >
-                        {t('header.testMode.suffix')}
-                      </motion.span> */}
-                    </p>
-                  </div>
-
-                  {/* <motion.div
-                    animate={{ rotate: [0, 180, 360] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="hidden sm:block"
-                  >
-                    <Zap className="w-5 h-5 text-yellow-300" />
-                  </motion.div> */}
-
-                  {/* Кнопка закрытия */}
-                  <button
-                    onClick={handleCloseBanner}
-                    className="ml-2 p-1 rounded-full hover:bg-white/20 transition-colors group"
-                    aria-label="Скрыть баннер"
-                  >
-                    <X className="w-4 h-4 text-white/80 group-hover:text-white transition-colors" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Основной хедер */}
-      <header className={`fixed ${topOffset} left-0 right-0 z-[21] bg-primary transition-all duration-300`}>
+      <header className="fixed top-0 left-0 right-0 z-[21] bg-primary">
         <div className="container-fluid">
           <div className="flex items-center justify-between h-[80px]">
             <div className="flex items-center space-x-6 lg:space-x-10">
@@ -262,16 +164,54 @@ export const Header: React.FC<Props> = () => {
             </div>
 
             <div className="flex items-center">
-              <div className="hidden lg:flex items-center gap-6">
+              <div className="hidden lg:flex items-center gap-4">
+                {/* Кнопка-бейдж тестового режима для десктопа */}
+                <div className="relative">
+                  <button
+                    onClick={() => setShowTestInfo(!showTestInfo)}
+                    className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium shadow-lg hover:shadow-xl"
+                  >
+                    <FlaskConical className="w-4 h-4" />
+                    <span>{t('header.testMode.message') || 'Сайт в режиме тестирования'}</span>
+                  </button>
+
+                  {/* Выпадающая подсказка */}
+                  <AnimatePresence>
+                    {showTestInfo && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="absolute top-full right-0 mt-2 w-72 bg-white rounded-lg shadow-xl p-4 text-gray-700"
+                      >
+                        <div className="absolute -top-2 right-6 w-4 h-4 bg-white transform rotate-45"></div>
+                        <h4 className="font-semibold mb-2">{t('header.testMode.infoTitle') || 'Информация о тестировании'}</h4>
+                        <p className="text-sm text-gray-600">
+                          {t('header.testMode.infoText') || 'Некоторые функции могут работать нестабильно. Мы активно работаем над улучшением сервиса.'}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
                 <AuthButton />
                 <LanguageSwitcher />
               </div>
               
               <div className="lg:hidden flex items-center gap-2">
+                {/* Компактная версия для мобильных */}
+                <button
+                  onClick={() => setShowTestInfo(!showTestInfo)}
+                  className="flex items-center gap-1.5 bg-orange-500 text-white px-3 py-1.5 rounded-lg text-xs font-medium"
+                >
+                  <FlaskConical className="w-3.5 h-3.5" />
+                  <span className="hidden xs:inline">{t('header.testMode.short') || 'Тест'}</span>
+                </button>
+                
                 <AuthButton />
                 <LanguageSwitcher />
                 <button
-                  className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#4BA82E]/10 transition-colors ml-2"
+                  className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#4BA82E]/10 transition-colors ml-1"
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
                   {isMenuOpen ? (
@@ -285,13 +225,31 @@ export const Header: React.FC<Props> = () => {
           </div>
         </div>
 
+        {/* Мобильная версия выпадающей информации */}
+        <AnimatePresence>
+          {showTestInfo && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="lg:hidden bg-orange-500/90 backdrop-blur-sm overflow-hidden"
+            >
+              <div className="container-fluid px-4 py-3">
+                <p className="text-sm text-white">
+                  {t('header.testMode.infoText') || 'Некоторые функции могут работать нестабильно. Мы активно работаем над улучшением сервиса.'}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className={`fixed inset-0 ${mobileMenuOffset} z-50 lg:hidden bg-black/30 overflow-hidden`}
+              className="fixed inset-0 top-[80px] z-50 lg:hidden bg-black/30 overflow-hidden"
               onClick={() => setIsMenuOpen(false)}
             >
               <motion.div
@@ -332,18 +290,6 @@ export const Header: React.FC<Props> = () => {
       </header>
       
       <CaptchaModal />
-
-      {/* Стили для градиентной анимации */}
-      <style jsx>{`
-        @keyframes gradient {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animate-gradient {
-          animation: gradient 5s ease infinite;
-        }
-      `}</style>
     </>
   );
 };
