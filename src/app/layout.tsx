@@ -70,7 +70,7 @@ export default function RootLayout({
         <div 
           className={clsx(
             "min-h-screen transition-all duration-300",
-            isTestBannerVisible ? "pt-[48px]" : "pt-[0px]" // 48px (баннер) + 80px (хедер) = 128px
+            isTestBannerVisible ? "pt-[48px]" : "pt-[0px]" 
           )}
         >
           {children}

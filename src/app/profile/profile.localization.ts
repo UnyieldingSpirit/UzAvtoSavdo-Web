@@ -1,6 +1,13 @@
 export const translations = {
     uz: {
         profile: {
+            paymentSection: {
+                title: "Qoldiqni to'lash",
+                payWithAsaka: "Asaka Bank orqali to'lash",
+                payWithPayme: "Payme orqali to'lash",
+                securePayment: "Xavfsiz to'lov",
+                commission: "Komissiyasiz"
+            },
             title: "Profil",
             personalInfo: "Shaxsiy ma'lumot",
             orders: "Buyurtmalar",
@@ -80,6 +87,13 @@ export const translations = {
     },
     ru: {
         profile: {
+            paymentSection: {
+                title: "Оплатить остаток",
+                payWithAsaka: "Оплатить через Asaka Bank",
+                payWithPayme: "Оплатить через Payme",
+                securePayment: "Безопасная оплата",
+                commission: "Без комиссии"
+            },
             title: "Профиль",
             personalInfo: "Персональные данные",
             orders: "Заказы",
