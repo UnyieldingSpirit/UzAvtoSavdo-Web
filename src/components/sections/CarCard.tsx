@@ -314,16 +314,13 @@ getStatusColor(extractTextFromHTML(car.state_html))
                  <div className="flex items-center justify-between">
                    <div className="flex flex-col items-start">
                      <div className="flex items-center gap-3 mb-1">
-                       {/* Логотип или иконка банка */}
-                       <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                         <span className="text-white font-bold text-lg">A</span>
-                       </div>
+                        {/* Логотип или иконка банка */}
+                        <svg viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.86642 18.9738L2.36855 20.4734C1.57997 21.2629 0.787882 22.0552 0 22.845V18.9777L0.00314953 18.9738H3.86642Z" fill="#F61E2E"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M17.2521 18.9738V24H1.15825L3.45413 21.7022L4.47787 20.6805L6.17942 18.9738H17.2521Z" fill="#F61E2E"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M17.2521 7.89519V17.3364H7.81843C10.9186 14.2355 14.1079 11.0419 17.2521 7.89519Z" fill="#F61E2E"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M24 1.13298V24H18.8876V6.25395C19.8101 5.33085 20.7324 4.40669 21.6517 3.48359L24 1.13298Z" fill="#F61E2E"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M22.819 0C16.6525 6.17944 10.8292 12.0123 5.50544 17.3365H1.61946L18.7336 0H22.819Z" fill="#F61E2E"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4335 0L0 16.6481V0H16.4335Z" fill="#F61E2E"></path></svg>
                        <span className="text-white font-semibold text-base">
                          Asaka Bank
                        </span>
                      </div>
                      <span className="text-white/80 text-sm">
-                       {t('profile.paymentSection.commission')}
                      </span>
                    </div>
                    <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
@@ -343,7 +340,7 @@ getStatusColor(extractTextFromHTML(car.state_html))
                )}
              >
                {/* Фон с градиентом */}
-               <div className="absolute inset-0 bg-gradient-to-br from-[#00DDDD] to-[#00CCCC] opacity-90 group-hover:opacity-100 transition-opacity" />
+               <div className="absolute inset-0 bg-[#00c1ca] opacity-90 group-hover:opacity-100 transition-opacity" />
                
                {/* Декоративный элемент */}
                <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
@@ -354,15 +351,14 @@ getStatusColor(extractTextFromHTML(car.state_html))
                    <div className="flex flex-col items-start">
                      <div className="flex items-center gap-3 mb-1">
                        {/* Логотип Payme */}
-                       <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                         <span className="text-white font-bold text-lg">P</span>
+                       <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+                        <img src="https://pr.uz/wp-content/uploads/2024/05/photo_2024-05-14_20-27-31-640x460.jpg" alt="" />
                        </div>
                        <span className="text-white font-semibold text-base">
                          Payme
                        </span>
                      </div>
                      <span className="text-white/80 text-sm">
-                       {t('profile.paymentSection.commission')}
                      </span>
                    </div>
                    <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
