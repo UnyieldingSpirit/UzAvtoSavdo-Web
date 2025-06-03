@@ -352,7 +352,7 @@ getStatusColor(extractTextFromHTML(car.state_html))
                      <div className="flex items-center gap-3 mb-1">
                        {/* Логотип Payme */}
                        <div className="w-10 h-10 rounded-lg flex items-center justify-center">
-                        <img src="https://pr.uz/wp-content/uploads/2024/05/photo_2024-05-14_20-27-31-640x460.jpg" alt="" />
+                        <img src="https://api.logobank.uz/media/logos_png/payme-01.png" alt="" />
                        </div>
                        <span className="text-white font-semibold text-base">
                          Payme
