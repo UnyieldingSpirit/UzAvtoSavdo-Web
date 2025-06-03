@@ -272,114 +272,123 @@ getStatusColor(extractTextFromHTML(car.state_html))
        </div>
      </div>
 
-     {/* Кнопки оплаты - улучшенный дизайн */}
-     {showPaymentButtons && (
-       <div className="mt-8 pt-6 border-t border-gray-200">
-         {/* Заголовок секции */}
-         <div className="flex items-center justify-between mb-6">
-           <div className="flex items-center gap-3">
-             <div className="p-2 bg-primary/10 rounded-lg">
-               <CreditCard className="w-5 h-5 text-primary" />
-             </div>
-             <div>
-               <h3 className="text-lg font-semibold text-gray-900">
-                 {t('profile.paymentSection.title')}
-               </h3>
-               <p className="text-sm text-gray-500 mt-0.5">
-                 {remainingAmount.toLocaleString()} {currencyLabel}
-               </p>
-             </div>
-           </div>
-           <div className="flex items-center gap-1.5 text-xs text-gray-500">
-             <Shield className="w-3.5 h-3.5" />
-             <span>{t('profile.paymentSection.securePayment')}</span>
-           </div>
-         </div>
+{/* Кнопки оплаты - улучшенный дизайн */}
+{showPaymentButtons && (
+  <div className="mt-8 pt-6 border-t border-gray-200">
+    {/* Заголовок секции */}
+    <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center gap-3">
+        <div className="p-2 bg-primary/10 rounded-lg">
+          <CreditCard className="w-5 h-5 text-primary" />
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900">
+            {t('profile.paymentSection.title')}
+          </h3>
+          <p className="text-sm text-gray-500 mt-0.5">
+            {remainingAmount.toLocaleString()} {currencyLabel}
+          </p>
+        </div>
+      </div>
+      <div className="flex items-center gap-1.5 text-xs text-gray-500">
+        <Shield className="w-3.5 h-3.5" />
+        <span>{t('profile.paymentSection.securePayment')}</span>
+      </div>
+    </div>
 
-         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-           {/* Кнопка Asaka Bank - только для физических лиц */}
-           {pinfl.length === 14 && paymentUrls.asaka && (
-             <button
-               onClick={() => window.location.href = paymentUrls.asaka}
-               className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg"
-             >
-               {/* Фон с градиентом */}
-               <div className="absolute inset-0 bg-gradient-to-br from-[#00B050] to-[#00A859] opacity-90 group-hover:opacity-100 transition-opacity" />
-               
-               {/* Декоративный элемент */}
-               <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
-               
-               {/* Контент кнопки */}
-               <div className="relative px-6 py-5">
-                 <div className="flex items-center justify-between">
-                   <div className="flex flex-col items-start">
-                     <div className="flex items-center gap-3 mb-1">
-                        {/* Логотип или иконка банка */}
-                        <svg viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.86642 18.9738L2.36855 20.4734C1.57997 21.2629 0.787882 22.0552 0 22.845V18.9777L0.00314953 18.9738H3.86642Z" fill="#F61E2E"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M17.2521 18.9738V24H1.15825L3.45413 21.7022L4.47787 20.6805L6.17942 18.9738H17.2521Z" fill="#F61E2E"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M17.2521 7.89519V17.3364H7.81843C10.9186 14.2355 14.1079 11.0419 17.2521 7.89519Z" fill="#F61E2E"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M24 1.13298V24H18.8876V6.25395C19.8101 5.33085 20.7324 4.40669 21.6517 3.48359L24 1.13298Z" fill="#F61E2E"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M22.819 0C16.6525 6.17944 10.8292 12.0123 5.50544 17.3365H1.61946L18.7336 0H22.819Z" fill="#F61E2E"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M16.4335 0L0 16.6481V0H16.4335Z" fill="#F61E2E"></path></svg>
-                       <span className="text-white font-semibold text-base">
-                         Asaka Bank
-                       </span>
-                     </div>
-                     <span className="text-white/80 text-sm">
-                     </span>
-                   </div>
-                   <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
-                 </div>
-               </div>
-             </button>
-           )}
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Кнопка Asaka Bank - только для физических лиц */}
+      {pinfl.length === 14 && paymentUrls.asaka && (
+        <button
+          onClick={() => window.location.href = paymentUrls.asaka}
+          className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg"
+        >
+          {/* Фон с градиентом в красных тонах Asaka Bank */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#C94A4A] to-[#B43E3E] opacity-90 group-hover:opacity-100 transition-opacity" />
+          
+          {/* Декоративный элемент */}
+          <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+          
+          {/* Контент кнопки */}
+          <div className="relative px-6 py-5">
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col items-start">
+                <div className="flex items-center gap-3 mb-1">
+                  {/* Белый логотип Asaka Bank */}
+                  <div className="w-10 h-10 bg-white rounded flex items-center justify-center p-1.5">
+                    <svg viewBox="0 0 24 24" width="28" height="28">
+                      <path fillRule="evenodd" clipRule="evenodd" d="M3.86642 18.9738L2.36855 20.4734C1.57997 21.2629 0.787882 22.0552 0 22.845V18.9777L0.00314953 18.9738H3.86642Z" fill="#C94A4A"></path>
+                      <path fillRule="evenodd" clipRule="evenodd" d="M17.2521 18.9738V24H1.15825L3.45413 21.7022L4.47787 20.6805L6.17942 18.9738H17.2521Z" fill="#C94A4A"></path>
+                      <path fillRule="evenodd" clipRule="evenodd" d="M17.2521 7.89519V17.3364H7.81843C10.9186 14.2355 14.1079 11.0419 17.2521 7.89519Z" fill="#C94A4A"></path>
+                      <path fillRule="evenodd" clipRule="evenodd" d="M24 1.13298V24H18.8876V6.25395C19.8101 5.33085 20.7324 4.40669 21.6517 3.48359L24 1.13298Z" fill="#C94A4A"></path>
+                      <path fillRule="evenodd" clipRule="evenodd" d="M22.819 0C16.6525 6.17944 10.8292 12.0123 5.50544 17.3365H1.61946L18.7336 0H22.819Z" fill="#C94A4A"></path>
+                      <path fillRule="evenodd" clipRule="evenodd" d="M16.4335 0L0 16.6481V0H16.4335Z" fill="#C94A4A"></path>
+                    </svg>
+                  </div>
+                  <span className="text-white font-semibold text-base">
+                    {t('profile.paymentSection.payWithAsaka')}
+                  </span>
+                </div>
+              </div>
+              <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        </button>
+      )}
 
-           {/* Кнопка Payme - для всех */}
-           {paymentUrls.payme && (
-             <button
-               onClick={() => window.location.href = paymentUrls.payme}
-               className={clsx(
-                 "group relative overflow-hidden rounded-xl transition-all duration-300",
-                 "hover:transform hover:scale-[1.02] hover:shadow-lg",
-                 pinfl.length !== 14 && "sm:col-span-2" // Если юрлицо, кнопка на всю ширину
-               )}
-             >
-               {/* Фон с градиентом */}
-               <div className="absolute inset-0 bg-[#00c1ca] opacity-90 group-hover:opacity-100 transition-opacity" />
-               
-               {/* Декоративный элемент */}
-               <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
-               
-               {/* Контент кнопки */}
-               <div className="relative px-6 py-5">
-                 <div className="flex items-center justify-between">
-                   <div className="flex flex-col items-start">
-                     <div className="flex items-center gap-3 mb-1">
-                       {/* Логотип Payme */}
-                       <div className="w-10 h-10 rounded-lg flex items-center justify-center">
-                        <img src="https://api.logobank.uz/media/logos_png/payme-01.png" alt="" />
-                       </div>
-                       <span className="text-white font-semibold text-base">
-                         Payme
-                       </span>
-                     </div>
-                     <span className="text-white/80 text-sm">
-                     </span>
-                   </div>
-                   <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
-                 </div>
-               </div>
-             </button>
-           )}
-         </div>
+      {/* Кнопка Payme - для всех */}
+{paymentUrls.payme && (
+  <button
+    onClick={() => window.location.href = paymentUrls.payme}
+    className={clsx(
+      "group relative overflow-hidden rounded-xl transition-all duration-300",
+      "hover:transform hover:scale-[1.02] hover:shadow-lg",
+      pinfl.length !== 14 && "sm:col-span-2" // Если юрлицо, кнопка на всю ширину
+    )}
+  >
+    {/* Фон с градиентом */}
+    <div className="absolute inset-0 bg-[#00CCCC] opacity-90 group-hover:opacity-100 transition-opacity" />
+    
+    {/* Декоративный элемент */}
+    <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+    
+    {/* Контент кнопки */}
+    <div className="relative px-6 py-5">
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col items-start">
+          <div className="flex items-center gap-3 mb-1">
+            {/* Логотип Payme */}
+            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1">
+              <img 
+                src="https://api.logobank.uz/media/logos_png/payme-01.png" 
+                alt="Payme" 
+                className="w-full h-full object-contain scale-150"
+              />
+            </div>
+            <span className="text-white font-semibold text-base">
+              {t('profile.paymentSection.payWithPayme')}
+            </span>
+          </div>
+        </div>
+        <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
+      </div>
+    </div>
+  </button>
+)}
+    </div>
 
-         {/* Информационная подсказка */}
-         <div className="mt-4 flex items-center gap-2 px-4 py-3 bg-gray-50 rounded-lg">
-           <Shield className="w-4 h-4 text-gray-400 flex-shrink-0" />
-           <p className="text-xs text-gray-500">
-             {currentLocale === 'ru' 
-               ? 'Платеж будет обработан в защищенном режиме через официальный сайт платежной системы'
-               : "To'lov rasmiy to'lov tizimi saytida xavfsiz rejimda amalga oshiriladi"
-             }
-           </p>
-         </div>
-       </div>
-     )}
+    {/* Информационная подсказка */}
+    <div className="mt-4 flex items-center gap-2 px-4 py-3 bg-gray-50 rounded-lg">
+      <Shield className="w-4 h-4 text-gray-400 flex-shrink-0" />
+      <p className="text-xs text-gray-500">
+        {currentLocale === 'ru' 
+          ? 'Платеж будет обработан в защищенном режиме через официальный сайт платежной системы'
+          : "To'lov rasmiy to'lov tizimi saytida xavfsiz rejimda amalga oshiriladi"
+        }
+      </p>
+    </div>
+  </div>
+)}
    </div>
  </div>
 );
