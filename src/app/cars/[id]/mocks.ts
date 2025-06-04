@@ -135,21 +135,21 @@ export const carModelsDesc: TranslatedCarModelsDesc = {
 
 
 export const carYouTubeVideos: Record<string, string> = {
-    "516": "dQw4w9WgXcQ", // ONIX 
+    "516": "AEZKtsBGvRU", // ONIX 
     "437": "dQw4w9WgXcQ", // DAMAS-2
     "438": "dQw4w9WgXcQ", // LACETTI
-    "439": "dQw4w9WgXcQ", // MALIBU-2
+    "439": "j-Mqoh91AKY", // MALIBU-2
     "440": "dQw4w9WgXcQ", // SPARK
     "441": "dQw4w9WgXcQ", // TAHOE
     "442": "dQw4w9WgXcQ", // TRAILBLAZER
-    "443": "dQw4w9WgXcQ", // TRAVERSE
+    "443": "BBY5PSTyirY", // TRAVERSE
     "444": "dQw4w9WgXcQ", // EQUINOX
     "435": "dQw4w9WgXcQ", // NEXIA-3
     "436": "dQw4w9WgXcQ", // COBALT
-    "445": "dQw4w9WgXcQ", // TRACKER-2
+    "445": "aFMpXrOrEmc", // TRACKER-2
     "446": "dQw4w9WgXcQ", // TAHOE-2
-    "478": "dQw4w9WgXcQ", // TRACKER
-    "479": "dQw4w9WgXcQ", // CAPTIVA 5T
+    "478": "_OcatkukEt0", // TRACKER
+    "479": "EaW5QgGYfWg", // CAPTIVA 5T
     "456": "dQw4w9WgXcQ", // ORLANDO
     "455": "dQw4w9WgXcQ", // CAPTIVA - 2 (2,4)
     "666": "dQw4w9WgXcQ", // LABO
