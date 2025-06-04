@@ -17,7 +17,8 @@ import {
   Check,
   Map,
   List,
-  Loader
+  Loader,
+  Play
 } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import clsx from 'clsx';
@@ -41,6 +42,9 @@ import { useCaptchaStore } from '@/store/captcha';
 import { useProcessingStore } from '@/store/processing';
 import { useAuth } from '@/hooks/useAuth';
 import ContractProcessing from '@/components/shared/Loader/Loader';
+
+import { YouTubePlayer } from '../../../components/sections/YouTubePlayer';
+import { carYouTubeVideos } from './mocks';
 
 const unitTranslations = {
   "uz": {
@@ -753,7 +757,10 @@ export default function CarDetailsPage() {
   const { dealers, fetchDealers } = useDealersStore();
   const isMobile = useMediaQuery('(max-width: 768px)');
   const itemsPerPage = 6;
-  
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+
+// Получаем ID видео для текущей модели
+const videoId = carYouTubeVideos[cars?.model_id];
   // Используем хуки для состояний контракта, капчи и обработки
   const { 
     isContractFlow, 
@@ -1653,31 +1660,65 @@ const link = carModels[currentLocale]?.[carId];
           
           {/* Левая колонка - изображение и характеристики */}
           <div className="lg:col-span-3 space-y-6">
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-              <motion.div 
-                layout
-                className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px]"
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={selectedColor?.color_id || 'default'}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="absolute inset-0"
-                  >
-                    <Image
-                      src={selectedColor?.photo_sha666 || car.photo_sha666}
-                      alt={car.name}
-                      fill
-                      className="object-contain p-4"
-                      priority
-                    />
-                  </motion.div>
-                </AnimatePresence>
-              </motion.div>
-            </div>
+         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+  <motion.div 
+    layout
+    className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px]"
+  >
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={selectedColor?.color_id || 'default'}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className="absolute inset-0"
+      >
+        <Image
+          src={selectedColor?.photo_sha666 || car.photo_sha666}
+          alt={car.name}
+          fill
+          className="object-contain p-4"
+          priority
+        />
+      </motion.div>
+    </AnimatePresence>
+    
+    {/* Кнопка Play */}
+    {videoId && (
+      <motion.button
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.5, type: "spring" }}
+        onClick={() => setIsVideoOpen(true)}
+        className="absolute bottom-4 right-4 group"
+      >
+        <div className="relative">
+          {/* Фон кнопки с эффектом пульсации */}
+          <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping" />
+          
+          {/* Основная кнопка */}
+          <div className="relative w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all group-hover:scale-110">
+            <Play className="w-7 h-7 text-white ml-1" fill="white" />
+          </div>
+          
+          {/* Текст под кнопкой */}
+          <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+            {currentLocale === 'ru' ? 'Смотреть видео' : 'Video ko\'rish'}
+          </span>
+        </div>
+      </motion.button>
+    )}
+  </motion.div>
+</div>
+
+{/* YouTube Player Modal */}
+<YouTubePlayer
+  videoId={videoId}
+  isOpen={isVideoOpen}
+  onClose={() => setIsVideoOpen(false)}
+  title={`${car.name} ${selectedMod?.name || ''}`}
+/>
             
             <motion.div 
               layout
