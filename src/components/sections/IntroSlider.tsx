@@ -12,7 +12,8 @@ import 'swiper/css/pagination';
 
 interface Slide {
   name: string;
-  modelId: string;
+  modelId?: string;
+  externalLink?: string;
   images: {
     uz: {
       desktop: string;
@@ -28,6 +29,20 @@ interface Slide {
 // Обновленная структура данных слайдов с изображениями для обоих языков
 const slides: Slide[] = [
   {
+    name: 'Kapitalbank Partnership',
+    externalLink: 'https://chevrolet.uz/page/sovmestnoe-predlozenie-ot-ao-uzauto-motors-i-akb-kapitalbank',
+    images: {
+      uz: {
+        desktop: 'https://chevrolet.uz/storage/images/sliders_uz/74/04UNIzir4w7H5Npn96edalML1LH46qmuBXBQ3Cp0.jpg',
+        mobile: 'https://chevrolet.uz/storage/images/sliders_mobile_uz/74/7zx6qCxCEgVVIC0pDMmr1nToszkUCwTWOvqMgpWb.jpg'
+      },
+      ru: {
+        desktop: 'https://chevrolet.uz/storage/images/sliders/74/PS1nwZu6IDkZXdHNkyMEiFaJow9vawRuUVL5UAnI.jpg',
+        mobile: 'https://chevrolet.uz/storage/images/sliders_mobile_ru/74/fjf1y545RAKYMm0767vboifAse9BiLsQif7eTKtL.jpg'
+      }
+    }
+  },
+  {
     name: 'Onix',
     modelId: '516',
     images: {
@@ -36,9 +51,8 @@ const slides: Slide[] = [
         mobile: 'https://chevrolet.uz/storage/images/sliders_mobile_uz/71/VNdOY4Lz4UwGLYHk63GThGpCOzfWLULh2Rrovwns.webp'
       },
       ru: {
-        // Здесь укажите пути к изображениям для русского языка
-        desktop: '/img/cars/desc2.webp', // Замените на реальный путь
-        mobile: '/img/cars/mob-uz2.webp'    // Замените на реальный путь
+        desktop: '/img/cars/desc2.webp',
+        mobile: '/img/cars/mob-uz2.webp'
       }
     }
   },
@@ -51,16 +65,12 @@ const slides: Slide[] = [
         mobile: 'https://chevrolet.uz/storage/images/sliders_mobile_uz/72/uZR9lGaUdCURV3ccS5VDjnqBUnurSNrdx1KzkYF7.webp'
       },
       ru: {
-        // Здесь укажите пути к изображениям для русского языка
-        desktop: '/img/cars/desc1.webp', // Замените на реальный путь
-        mobile: '/img/cars/mob-uz1.webp'    // Замените на реальный путь
+        desktop: '/img/cars/desc1.webp',
+        mobile: '/img/cars/mob-uz1.webp'
       }
     }
   }
 ];
-
-
-
 
 export const IntroSlider = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -77,8 +87,14 @@ export const IntroSlider = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const handleImageClick = (modelId: string) => {
-    router.push(`/cars/${modelId}`);
+  const handleImageClick = (slide: Slide) => {
+    if (slide.externalLink) {
+      // Открываем внешнюю ссылку в новой вкладке
+      window.open(slide.externalLink, '_blank', 'noopener,noreferrer');
+    } else if (slide.modelId) {
+      // Переходим на страницу автомобиля
+      router.push(`/cars/${slide.modelId}`);
+    }
   };
 
   // Используем изображения в зависимости от текущего языка и устройства
@@ -122,7 +138,7 @@ export const IntroSlider = () => {
                 src={getImageForSlide(slide)}
                 alt={`${slide.name} фото`}
                 className="banner-image"
-                onClick={() => handleImageClick(slide.modelId)}
+                onClick={() => handleImageClick(slide)}
               />
             </div>
           </SwiperSlide>
@@ -156,6 +172,11 @@ export const IntroSlider = () => {
           height: auto;
           display: block;
           object-fit: contain;
+          transition: transform 0.3s ease;
+        }
+        
+        .banner-image:hover {
+          transform: scale(1.02);
         }
         
         .banner-content {
@@ -193,12 +214,28 @@ export const IntroSlider = () => {
           }
         }
 
+        .swiper-pagination {
+          position: absolute;
+          bottom: 20px !important;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 8px;
+          z-index: 10;
+        }
+
         .swiper-pagination-bullet {
+          width: 8px;
+          height: 8px;
+          background-color: rgba(255, 255, 255, 0.5);
+          opacity: 1;
           transition: all 0.3s ease;
+          cursor: pointer;
         }
         
         .swiper-pagination-bullet-active {
-          transform: scale(1.3);
+          width: 24px;
+          border-radius: 4px;
           background-color: #fff;
         }
       `}</style>
