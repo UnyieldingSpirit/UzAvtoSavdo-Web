@@ -138,7 +138,7 @@ export const carYouTubeVideos: Record<string, string> = {
     "516": "AEZKtsBGvRU", // ONIX 
     "437": "dQw4w9WgXcQ", // DAMAS-2
     "438": "dQw4w9WgXcQ", // LACETTI
-    "439": "j-Mqoh91AKY", // MALIBU-2
+    "439": "zH_EGqbsymE", // MALIBU-2
     "440": "dQw4w9WgXcQ", // SPARK
     "441": "dQw4w9WgXcQ", // TAHOE
     "442": "dQw4w9WgXcQ", // TRAILBLAZER
