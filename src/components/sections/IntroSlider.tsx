@@ -242,3 +242,4 @@ export const IntroSlider = () => {
     </div>
   );
 };
+
