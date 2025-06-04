@@ -18,7 +18,8 @@ import {
   Map,
   List,
   Loader,
-  Play
+  Play,
+   X
 } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import clsx from 'clsx';
@@ -753,14 +754,14 @@ export default function CarDetailsPage() {
   // Состояние для контроля высоты динамических блоков
   const [colorBlockHeight, setColorBlockHeight] = useState("auto");
   const [modBlockHeight, setModBlockHeight] = useState("auto");
-  
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const { dealers, fetchDealers } = useDealersStore();
   const isMobile = useMediaQuery('(max-width: 768px)');
   const itemsPerPage = 6;
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
 // Получаем ID видео для текущей модели
-const videoId = carYouTubeVideos[cars?.model_id];
+
   // Используем хуки для состояний контракта, капчи и обработки
   const { 
     isContractFlow, 
@@ -771,6 +772,16 @@ const videoId = carYouTubeVideos[cars?.model_id];
     setSelectedMod: setStoreSelectedMod
   } = useContractStore();
   const [carNotFound, setCarNotFound] = useState(false);
+
+useEffect(() => {
+  // Сбрасываем видео при любом изменении
+  setIsVideoPlaying(false);
+}, [
+  selectedColor?.color_id,      // При смене цвета
+  selectedMod?.modification_id, // При смене модификации
+  currentPage,                  // При смене страницы цветов
+  activeTopTab                  // При переключении табов
+]);
 
 // Обновим useEffect для загрузки и проверки существования автомобиля
 useEffect(() => {
@@ -856,7 +867,7 @@ useEffect(() => {
   const { isAuthorized, handleAuthRequired } = useAuth();
   
   const car = cars.find((c) => c.model_id === id);
-  
+  const videoId = carYouTubeVideos[car?.model_id];
   // Маппинг регионов из карты к ID регионов для API
   const regionMapping = useMemo(() => ({
     'UZ-AN': '2', // Андижанская область
@@ -1660,55 +1671,81 @@ const link = carModels[currentLocale]?.[carId];
           
           {/* Левая колонка - изображение и характеристики */}
           <div className="lg:col-span-3 space-y-6">
-         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+   <div className="bg-white rounded-xl shadow-sm overflow-hidden">
   <motion.div 
     layout
     className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px]"
   >
     <AnimatePresence mode="wait">
-      <motion.div
-        key={selectedColor?.color_id || 'default'}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
-        className="absolute inset-0"
-      >
-        <Image
-          src={selectedColor?.photo_sha666 || car.photo_sha666}
-          alt={car.name}
-          fill
-          className="object-contain p-4"
-          priority
-        />
-      </motion.div>
+      {!isVideoPlaying ? (
+        // Режим фото
+        <motion.div
+          key="photo"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={selectedColor?.photo_sha666 || car.photo_sha666}
+            alt={car.name}
+            fill
+            className="object-contain p-4"
+            priority
+          />
+          
+          {/* Кнопка Play */}
+          {car && carYouTubeVideos[car.model_id] && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, type: "spring" }}
+              onClick={() => setIsVideoPlaying(true)}
+              className="absolute bottom-4 right-4 group z-10"
+            >
+              <div className="relative">
+                {/* Фон кнопки с эффектом пульсации */}
+                <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping" />
+                
+                {/* Основная кнопка */}
+                <div className="relative w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all group-hover:scale-110">
+                  <Play className="w-7 h-7 text-white ml-1" fill="white" />
+                </div>
+              </div>
+            </motion.button>
+          )}
+        </motion.div>
+      ) : (
+        // Режим видео
+        <motion.div
+          key="video"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0 bg-black"
+        >
+          {/* Кнопка закрытия видео */}
+          <button
+            onClick={() => setIsVideoPlaying(false)}
+            className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm flex items-center justify-center transition-colors group"
+          >
+            <X className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+          </button>
+          
+          {/* YouTube iframe */}
+          <iframe
+            className="absolute inset-0 w-full h-full"
+            src={`https://www.youtube.com/embed/${carYouTubeVideos[car.model_id]}?autoplay=1&rel=0&modestbranding=1`}
+            title={`${car.name} ${selectedMod?.name || ''}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </motion.div>
+      )}
     </AnimatePresence>
-    
-    {/* Кнопка Play */}
-    {videoId && (
-      <motion.button
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.5, type: "spring" }}
-        onClick={() => setIsVideoOpen(true)}
-        className="absolute bottom-4 right-4 group"
-      >
-        <div className="relative">
-          {/* Фон кнопки с эффектом пульсации */}
-          <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping" />
-          
-          {/* Основная кнопка */}
-          <div className="relative w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all group-hover:scale-110">
-            <Play className="w-7 h-7 text-white ml-1" fill="white" />
-          </div>
-          
-          {/* Текст под кнопкой */}
-          <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-            {currentLocale === 'ru' ? 'Смотреть видео' : 'Video ko\'rish'}
-          </span>
-        </div>
-      </motion.button>
-    )}
   </motion.div>
 </div>
 
