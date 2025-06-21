@@ -735,6 +735,7 @@ export default function CarDetailsPage() {
   const { id } = useParams();
   const { cars, fetchCars } = useCarsStore();
   const router = useRouter();
+  
   const [selectedMod, setSelectedMod] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -743,7 +744,7 @@ export default function CarDetailsPage() {
   const [installmentActions, setInstallmentActions] = useState([]);
   const [installmentConfig, setInstallmentConfig] = useState(null);
   const [isInstallmentAvailable, setIsInstallmentAvailable] = useState(false);
-  const [hasRealActions, setHasRealActions] = useState(false); // Новое состояние для отслеживания реальных actions
+  const [, setHasRealActions] = useState(false);
   
   const [selectedRegionCode, setSelectedRegionCode] = useState(null);
   const [isLoadingMap, setIsLoadingMap] = useState(false);
@@ -760,8 +761,9 @@ export default function CarDetailsPage() {
   const itemsPerPage = 6;
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
-// Получаем ID видео для текущей модели
-
+const findCarBySlug = (slug) => {
+  return cars.find(car => car.name.toLowerCase().replace(/\s+/g, '-') === slug);
+};
   // Используем хуки для состояний контракта, капчи и обработки
   const { 
     isContractFlow, 
@@ -800,7 +802,7 @@ useEffect(() => {
       // После загрузки проверяем наличие машины
       // Используем setTimeout чтобы дать время стору обновиться
       setTimeout(() => {
-        const foundCar = cars.find(c => c.model_id === id);
+        const foundCar = cars.find(c => c.name === id || c.model_id === id);
         if (!foundCar && cars.length > 0) {
           setCarNotFound(true);
         }
@@ -866,7 +868,7 @@ useEffect(() => {
   const { isProcessing, submitContract } = useProcessingStore();
   const { isAuthorized, handleAuthRequired } = useAuth();
   
-  const car = cars.find((c) => c.model_id === id);
+  const car = cars.find((c) => c.name === id || c.model_id === id);
   const videoId = carYouTubeVideos[car?.model_id];
   // Маппинг регионов из карты к ID регионов для API
   const regionMapping = useMemo(() => ({

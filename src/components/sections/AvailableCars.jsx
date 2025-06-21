@@ -382,7 +382,7 @@ function CarCard({
           <button
             onClick={(e) => {
               e.preventDefault(); // Предотвращаем действие по умолчанию для Link
-              router.push(`/cars/${modelId}`);
+              router.push(`/cars/${name}`);
             }}
             className={clsx(
               'w-full flex items-center justify-center',
@@ -414,7 +414,7 @@ function CarCard({
       )}
     >
       {/* Используем условный рендеринг для компонента Link */}
-    <div className="flex flex-col h-full" onClick={() => router.push(`/cars/${modelId}`)}>
+    <div className="flex flex-col h-full" onClick={() => router.push(`/cars/${name}`)}>
   {cardContent}
 </div>
       
