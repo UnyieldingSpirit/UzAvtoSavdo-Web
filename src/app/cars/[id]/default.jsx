@@ -802,7 +802,7 @@ useEffect(() => {
       // После загрузки проверяем наличие машины
       // Используем setTimeout чтобы дать время стору обновиться
       setTimeout(() => {
-        const foundCar = cars.find(c => c.name === id || c.model_id === id);
+        const foundCar = cars.find(c => c.name.toLowerCase() === id || c.model_id === id);
         if (!foundCar && cars.length > 0) {
           setCarNotFound(true);
         }
@@ -868,7 +868,7 @@ useEffect(() => {
   const { isProcessing, submitContract } = useProcessingStore();
   const { isAuthorized, handleAuthRequired } = useAuth();
   
-  const car = cars.find((c) => c.name === id || c.model_id === id);
+  const car = cars.find((c) => c.name.toLowerCase() === id || c.model_id === id);
   const videoId = carYouTubeVideos[car?.model_id];
   // Маппинг регионов из карты к ID регионов для API
   const regionMapping = useMemo(() => ({
